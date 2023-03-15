@@ -47,7 +47,7 @@ class KMeans(object):
         try:
             pairwise(np.array([0,0]).reshape(-1,1), np.array([1,1]).reshape(-1,1), metric=self.metric)
         except Exception as e:
-            print e
+            print(e)
             return
 
     def _get_distance(self, x, y, reshape=True):
@@ -72,7 +72,7 @@ class KMeans(object):
             :param data: The data to cluster
             :type data: np.array
         """
-        for i in xrange(self.k):
+        for i in range(self.k):
             self.centroids[i] = np.mean(data[np.where(self.labels_==i)], axis=0)
 
 
@@ -86,20 +86,20 @@ class KMeans(object):
         """
         weights = np.zeros(data.shape[0])   
         weights.fill(1-self.alpha)     
-        kd = np.hstack(np.array(self.known_data).flat).astype(np.int)
+        kd = np.hstack(np.array(np.array(self.known_data).flat)).astype(np.int)
         weights[kd] = self.alpha
         weights = weights/weights.sum()   
         
-        for i in xrange(self.k):
+        for i in range(self.k):
         
             # compute weights for every cluster
             inds = np.where(self.labels_==i)[0]
             self.centroids[i] = np.average(data[inds], weights=weights[inds], axis=0)
 
-        for i in xrange(self.k):
+        for i in range(self.k):
             if i<len(self.known_data) and len(self.known_data[i]):
                 max_vote = 0
-                max_vote = map(lambda lbl: (self.labels_[self.known_data[i]]==lbl).sum() , range(0, self.k))
+                max_vote = [(self.labels_[self.known_data[i]]==lbl).sum() for lbl in range(0, self.k)]
                 self.labels_[self.known_data[i]] = np.argmax(max_vote)
 
 
@@ -140,7 +140,7 @@ class KMeans(object):
             current_centers = data[first_centroid_index]
 
 
-        for i in xrange(len(current_centers), self.k):
+        for i in range(len(current_centers), self.k):
             found_centroid = False
             distances = np.array([min([np.inner(center-p,center-p) for center in current_centers]) for p in data], dtype=np.float64)
             probabilities = distances/distances.sum()
@@ -221,4 +221,4 @@ class KMeans(object):
             counter+=1
 
             if self.verbose:
-                print "Iteration {}\tConvergance: {}".format(counter, threshold)
+                print("Iteration {}\tConvergance: {}".format(counter, threshold))

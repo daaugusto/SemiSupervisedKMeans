@@ -62,7 +62,7 @@ class KernelKMeans(object):
         try:
             self.dist = pairwise_kernels(data, metric=self.kernel_, filter_params=True, **self.kernel_params_)
         except Exception as e:
-            print e
+            print(e)
             return
 
 
@@ -99,7 +99,7 @@ class KernelKMeans(object):
 
             temp = np.zeros((self.k, len(data)))
 
-            for i in xrange(self.k):
+            for i in range(self.k):
                 inds = np.where(labels==i)[0]
                 second_term = (-2 * self.dist[:,inds].sum(axis=1))/len(inds)
                 third_term = (self.dist[inds][:,inds]).sum()/(len(inds)**2)
@@ -111,7 +111,7 @@ class KernelKMeans(object):
             labels_changed = (labels!=old_labels).sum()
             
             if self.verbose:
-                print "Iteration {} of {}, {} labels changed".format(current_iter+1, self.max_iter, labels_changed)
+                print("Iteration {} of {}, {} labels changed".format(current_iter+1, self.max_iter, labels_changed))
             current_iter+=1
 
         self.labels_ = labels
@@ -131,7 +131,7 @@ class KernelKMeans(object):
         labels = np.random.choice(np.arange(0, self.k), data.shape[0])
         
         # Put labels for the known data
-        for i in xrange(self.k):
+        for i in range(self.k):
             if self.known_data[i] is not None and len(self.known_data[i]):
                 labels[self.known_data[i]] = i
 
@@ -150,7 +150,7 @@ class KernelKMeans(object):
 
 
             
-            for i in xrange(self.k):
+            for i in range(self.k):
 
                 # compute weights for every cluster
                 
@@ -177,7 +177,7 @@ class KernelKMeans(object):
             
             
             if self.verbose:
-                print "Iteration {} of {}, {} labels changed".format(current_iter+1, self.max_iter, labels_changed)
+                print("Iteration {} of {}, {} labels changed".format(current_iter+1, self.max_iter, labels_changed))
             
             current_iter+=1
 

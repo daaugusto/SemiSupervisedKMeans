@@ -7,7 +7,7 @@ pip install -r requirements.txt
 ```
 
 ### Usage:
-You can run the exmple `python example.py`
+You can run the example `python3 example.py`
 
 ### Documentation:  
 
